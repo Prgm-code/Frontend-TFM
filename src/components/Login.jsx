@@ -19,7 +19,6 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí iría la lógica para enviar los datos del formulario a la API
     await login(formData);
 
     console.log(formData);

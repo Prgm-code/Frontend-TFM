@@ -8,10 +8,10 @@ import Login from './components/Login.jsx';
 import Users from './components/Users.jsx';
 import Register from './components/Register.jsx';
 import Navbar from './components/Navbar.jsx';
-import JupyterHubIframe from './components/JupyterHubIframe';
+
 import FileBrowser from './components/FileBrowser.jsx';
 
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 
 
 
@@ -49,7 +49,7 @@ useState(async() => {
           <Route path='/' element={<Login />} />
           <Route path='/users' element={<Users />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/jupyterhub' element={<JupyterHubIframe />} />
+          
           <Route path='/hdfs' element={<FileBrowser />} />
           
         

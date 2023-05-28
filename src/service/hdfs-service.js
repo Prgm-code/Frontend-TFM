@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = "http://localhost:3500";
+const BASE_URL = "https://hadoop-tfm.prgm.info/api";
 
 const uploadFile = async (file, onUploadProgress) => {
     const formData = new FormData();

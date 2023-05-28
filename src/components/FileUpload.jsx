@@ -1,6 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Progress, Container, Icon, Header, Table, Message } from 'semantic-ui-react';
-import useHdfsStore from '../store/hdfsStore';
+import React, { useState, useEffect } from "react";
+import {
+  Button,
+  Progress,
+  Container,
+  Icon,
+  Header,
+  Table,
+  Message,
+} from "semantic-ui-react";
+import useHdfsStore from "../store/hdfsStore";
 
 const FileUpload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -35,43 +43,70 @@ const FileUpload = () => {
   }, [showMessage]);
 
   return (
-    <Container style={{ marginBottom: '1em' }}>
+    <Container style={{ marginBottom: "1em" }}>
       <Table celled>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell colSpan='3'><Header as='h2'>File Upload</Header></Table.HeaderCell>
+            <Table.HeaderCell colSpan="3">
+              <Header as="h2">File Upload</Header>
+            </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
           <Table.Row>
             <Table.Cell>
-              <Button as="label" htmlFor="file" type="button" animated="fade" size="large">
+              <Button
+                as="label"
+                htmlFor="file"
+                type="button"
+                animated="fade"
+                size="large"
+              >
                 <Button.Content visible>
                   <Icon name="file" />
                 </Button.Content>
                 <Button.Content hidden>Choose File</Button.Content>
               </Button>
-              <input type="file" id="file" style={{ display: 'none' }} onChange={handleFileChange} />
-              <Button onClick={handleUploadClick} disabled={!selectedFile} size="large">Upload</Button>
+              <input
+                type="file"
+                id="file"
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+              />
+              <Button
+                onClick={handleUploadClick}
+                disabled={!selectedFile}
+                size="large"
+              >
+                Upload
+              </Button>
             </Table.Cell>
             <Table.Cell>
-              {selectedFile && <><strong>Selected File:  </strong> {selectedFile.name}</>}
+              {selectedFile && (
+                <>
+                  <strong>Selected File: </strong> {selectedFile.name}
+                </>
+              )}
             </Table.Cell>
             <Table.Cell>
-              {uploadProgress > 0 && <Progress percent={uploadProgress} indicating />}
+              {uploadProgress > 0 && (
+                <Progress percent={uploadProgress} indicating />
+              )}
             </Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table>
 
       {showMessage && (
-        <Message 
+        <Message
           onDismiss={() => setShowMessage(false)}
           positive={result != null}
           negative={error != null}
           header={result != null ? "Success!" : "Error!"}
-          content={result != null ? result : error}
+          content={
+            result != null ? JSON.stringify(result.message) : JSON.stringify(error)
+          }
         />
       )}
     </Container>

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useAuthStore } from "../store/usersStore";
-const BASE_URL = "http://localhost:3500";
+
+const BASE_URL = "https://hadoop-tfm.prgm.info/api";
 
 const handleToken = () => {
   const token = localStorage.getItem("token");
@@ -10,39 +10,22 @@ const handleToken = () => {
 };
 
 export const getUsers = async () => {
-  {
-    try {
+  
       handleToken();
-      const { data } = await axios.get(`${BASE_URL}/users`);
-      return data;
-    } catch (error) {
-      console.log(error);
-      return error;
-    }
-  }
+      return await axios.get(`${BASE_URL}/users`);
+       
+   
 };
 
-export const registerUser = async (user) => {
-  try {
-    const { data } = await axios.post(`${BASE_URL}/register`, user);
-    return data;
-  } catch (error) {
-    console.log(error);
-    return error;
-
-  }
+export const registerUserApi = async (user) => {
+  return await axios.post(`${BASE_URL}/register`, user);
+ 
 };
 
 export const login = async (user) => {
-  try {
-    const { data } = await axios.post(`${BASE_URL}/login`, user);
+  return await axios.post(`${BASE_URL}/login`, user);
     
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
+ 
 };
 
-// Path: src/components/Post.js
+

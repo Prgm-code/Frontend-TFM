@@ -11,12 +11,13 @@ import UserCard from './UserCard';
 
 
 
-  const handleUsers = async () => {
+  useEffect( () => {
 
-  await setUsersList();
-}
-  useEffect(() => {
-handleUsers();
+    const handleUsers = async () => {
+
+      await setUsersList();
+    }
+     handleUsers();
   }, []);
  
   
@@ -24,10 +25,10 @@ handleUsers();
   return (
     user ? (
       <div className='card-container'>
-      {usersList.map(user => (
+      {usersList && usersList.map((user) => (
         <UserCard key={user.id} user={user} />
-        
       ))}
+      
     </div>
       
     ) : (
