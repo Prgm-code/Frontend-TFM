@@ -34,34 +34,76 @@ export const useRegisterUserStore = create((set) => ({
   },
 }));
 
-export const useAuthStore =  create((set) => ({
-  token: localStorage.getItem("token") || null,
-  user: null,
-  error: null,
-  setToken: async (token) => {
-    
-    
-    try {
-      const response = await login(token);
-        console.log(response);
-   
-      localStorage.setItem("token", response.token);
-      const decodeUser = jwtDecode(response.token);
-      console.log(decodeUser);
-      set({ user: decodeUser.sub, token: response.token, error: null  });
-      localStorage.setItem("user", JSON.stringify(decodeUser));
 
+export const useAuthStore = create((set) => ({
+    token: null,
+    user: null,
+    error: null,
+    
+    handleToken: async () => {
+      try {
+        const token = localStorage.getItem('token');
+       
+  
+        // Si el token no existe, terminamos la ejecución de la función
+        if (!token) {
           
-    } catch (error) {
-      console.log(error);
-      set({ error: 'not allowed'});
-    }
-  },
-    logout: () => {
-        console.log("logout");
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        set({ user: null, token: null , error: null});
-    }
+          console.log('token not found');
+          return;
+        }
+  
+        // Decodificamos el token y comprobamos errorees
+        const decodedToken = jwtDecode(token)
+        console.log(decodedToken);
+        if (!decodedToken) {
+            console.log('Invalid token');
+           
+            return  error;
+        }
 
-}));
+  
+        // Comprobamos si el token ha expirado
+        const currentTime = Date.now().valueOf() / 1000;
+        if (decodedToken.exp < currentTime) {
+          console.log('token expired');
+        
+          return error;
+        }
+  
+        // Si todo está bien, establecemos el token y el usuario en el estado
+        set({ token, user: decodedToken.sub, error: null });
+      } catch (error) {
+        set({ error: 'Session expired' });
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            console.log('Session expired'); 
+
+      }
+    },
+   
+    login: async (user) => {
+    
+        console.log('useAuth',user);
+        try {
+          const response = await login(user);
+            console.log(response);
+       
+          localStorage.setItem("token", response.token);
+          const decodeUser = jwtDecode(response.token);
+          console.log(decodeUser);
+          set({ user: decodeUser.sub, token: response.token, error: null  });
+          localStorage.setItem("user", JSON.stringify(decodeUser));
+    
+              
+        } catch (error) {
+          console.log(error);
+          set({ error: error.message});
+        }
+    },  
+
+    logout: () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      set({ user: null, token: null, error: null });
+    }
+  }));

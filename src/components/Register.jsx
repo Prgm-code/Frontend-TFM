@@ -33,7 +33,7 @@ const Register = () => {
     <div className="card-container" style={{marginTop:  '2rem'}}>
         <Card>
         <h1>Usuario creado:</h1>
-      <h2>{newUser.data.id}</h2>
+      <h2>{newUser.data.id || 'undefined'}</h2>
       
         </Card>
         <Button

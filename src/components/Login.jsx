@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const error = useAuthStore((state) => state.error);
   const user = useAuthStore((state) => state.user);
-  const setToken = useAuthStore((state) => state.setToken);
+  const login = useAuthStore((state) => state.login);
 
   const [formData, setFormData] = useState({
     userId: '',
@@ -20,7 +20,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Aquí iría la lógica para enviar los datos del formulario a la API
-    await setToken(formData);
+    await login(formData);
 
     console.log(formData);
 

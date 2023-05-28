@@ -8,6 +8,8 @@ import Login from './components/Login.jsx';
 import Users from './components/Users.jsx';
 import Register from './components/Register.jsx';
 import Navbar from './components/Navbar.jsx';
+import JupyterHubIframe from './components/JupyterHubIframe';
+import FileBrowser from './components/FileBrowser.jsx';
 
 import { useEffect, useState } from 'react';
 
@@ -17,14 +19,14 @@ import { useEffect, useState } from 'react';
 function app(){
 
   const user = useAuthStore((state) => state.user);
-  const setToken = useAuthStore((state) => state.setToken);
- 
-
-useState(() => {
-  setToken();
-}, []);
+  const erorr = useAuthStore((state) => state.error); 
+  const handleToken = useAuthStore((state) => state.handleToken);
 
 
+useState(async() => {
+
+  await handleToken();
+}, [handleToken]);
 
   
     return(
@@ -37,7 +39,7 @@ useState(() => {
         backgroundPosition: 'center center', 
         backgroundSize: 'cover',
         backgroundColor: '#000',
-        filter: 'grayscale(100%) brightness(90%)',
+        filter: 'color(100%) brightness(100%)',
 
       }}>
         <Navbar />
@@ -47,6 +49,8 @@ useState(() => {
           <Route path='/' element={<Login />} />
           <Route path='/users' element={<Users />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/jupyterhub' element={<JupyterHubIframe />} />
+          <Route path='/hdfs' element={<FileBrowser />} />
           
         
           <Route path='*' element={<h1>Not Found</h1>} />

@@ -28,16 +28,20 @@ export const registerUser = async (user) => {
     return data;
   } catch (error) {
     console.log(error);
+    return error;
+
   }
 };
 
 export const login = async (user) => {
   try {
     const { data } = await axios.post(`${BASE_URL}/login`, user);
-    return data;
+    
     console.log(data);
+    return data;
   } catch (error) {
     console.log(error);
+    return error;
   }
 };
 

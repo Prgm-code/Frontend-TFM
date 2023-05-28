@@ -1,4 +1,18 @@
+.actionFileBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
 
+.actionFileBox button {
+  margin-bottom: 10px;
+  width: 150px;
+}
+
+.actionFileBox button:last-child {
+  margin-bottom: 0;
+}
 
 
 

@@ -6,6 +6,7 @@ import { useAuthStore } from "../store/usersStore";
 export default function Navbar() {
   const [activeItem, setActiveItem] = useState("home");
   const logout = useAuthStore((state) => state.logout);
+  const user = useAuthStore((state) => state.user);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -42,6 +43,28 @@ export default function Navbar() {
         active={activeItem === "Users"}
         onClick={handleItemClick}
       />
+      <Menu.Item
+        as={Link}
+        to="/jupyterhub"
+        name="JupyterHub"
+        active={activeItem === "JupyterHub"}
+        onClick={handleItemClick}
+      />
+      <Menu.Item
+
+        as={Link}   
+        to="/hdfs"
+        name="HDFS"
+        active={activeItem === "HDFS"}
+        onClick={handleItemClick}
+      />
+      <Menu.Item
+        position="right"
+        >
+        <h4>Logged in as: {user}</h4>
+      </Menu.Item>
+    
+
       <Menu.Item position="right">
         <Button 
         onClick={handleLogout}
